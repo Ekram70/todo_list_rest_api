@@ -70,3 +70,23 @@ exports.SelectProfile = (req, res) => {
         }
     );
 };
+
+exports.UpdateProfile = (req, res) => {
+    const { username } = req.headers;
+    const reqBody = req.body;
+
+    ProfileModel.updateOne(
+        { username },
+        {
+            $set: reqBody,
+        },
+        (error, data) => {
+            if (!error) {
+                res.status(200).json({ status: 'success', data });
+            } else {
+                res.status(400).json({ status: 'Failed', data: error });
+            }
+            // eslint-disable-next-line comma-dangle
+        }
+    );
+};

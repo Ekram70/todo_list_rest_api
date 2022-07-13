@@ -9,6 +9,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
 // database
 const mongoose = require('mongoose');
@@ -38,8 +39,13 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+// path of env file
+dotenv.config({
+    path: './config.env',
+});
+
 // mongodb database connection
-const URI = 'mongodb://127.0.0.1:27017/Todo';
+const URI = `${process.env.MONGODB_URI}`;
 const option = { user: '', pass: '', autoIndex: true };
 mongoose.connect(URI, option, (error) => {
     if (!error) {

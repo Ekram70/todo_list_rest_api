@@ -1,4 +1,0 @@
-/**
- * User Login
- * Issue token
- */
