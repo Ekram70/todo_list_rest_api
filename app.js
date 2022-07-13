@@ -40,7 +40,7 @@ app.use(limiter);
 
 // mongodb database connection
 const URI = 'mongodb://127.0.0.1:27017/Todo';
-const option = { user: '', pass: '' };
+const option = { user: '', pass: '', autoIndex: true };
 mongoose.connect(URI, option, (error) => {
     if (!error) {
         console.log('MongoDB Connection Successful');
@@ -50,8 +50,8 @@ mongoose.connect(URI, option, (error) => {
 });
 
 // routing implement
-app.use('api/v1', router);
-app.use('*', (_, res) => {
+app.use('/api/v1', router);
+app.use('*', (req, res) => {
     res.status(404).json({ status: 'fail', data: 'Not Found' });
 });
 
